@@ -1,0 +1,37 @@
+# Illustrative read-only handoff, not execution or approval evidence.
+contract_version: "1.0"
+request_id: "audio-tray-style-spec"
+provider_id: "monitorbar-desktop-style"
+mode: "spec"
+project_route: "NEW_BUILD"
+visual_intent:
+  family: "monitorbar-compact"
+  preset: "apple-inspired-light"
+  source: "Example assumption: user selected the silver light MonitorBar style"
+product_job:
+  primary_user: "Desktop user who frequently switches audio output"
+  primary_object: "Current audio output device"
+  primary_task: "Select output, adjust volume and mute"
+  frequency: "Repeated quick actions throughout the day"
+  density: "Compact flyout with all frequent controls visible"
+surface_blueprint:
+  page_type: "desktop-flyout"
+  regions: ["device-header", "volume-control", "output-device-list", "connection-status"]
+  navigation: "One view; no tabs"
+  states: ["connected", "detecting", "empty", "pending", "error", "selected", "keyboard-focus"]
+  data_contracts:
+    - "Device list and capabilities come from the existing host adapter"
+    - "Pending selection is confirmed only after host acknowledgement"
+    - "Stale requests cannot overwrite a newer volume intent"
+environment:
+  framework: "tauri"
+  existing_component_library: "Existing vanilla web controls"
+  targets: ["macos-menu-bar", "windows-system-tray"]
+  constraints: ["Preserve host adapter and API", "No new framework or dependency"]
+design_source: "none; illustrative new-project case"
+change_scope: "read-only"
+deliverable: ["style-spec", "component-mapping", "motion-contract", "compatibility-gaps"]
+constraints:
+  preserve_business_and_API_contracts: true
+  accessibility: ["Keyboard operation", "Accessible labels", "Text scaling", "Reduced motion"]
+  permission_limits: "No project writes, host/device actions or dependency installation"

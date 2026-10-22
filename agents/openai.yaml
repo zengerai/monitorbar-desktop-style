@@ -1,0 +1,7 @@
+interface:
+  display_name: "MonitorBar 状态栏风格"
+  short_description: "菜单栏与托盘的银白紧凑浮层，支持独立使用及 product-ui Provider 模式"
+  default_prompt: "使用 $monitorbar-desktop-style 为这个菜单栏或托盘工具设计并实现界面，按业务组合紧凑组件；没有既有主题或另行指定时，使用已认可的苹果风银白与蓝色点缀。"
+
+policy:
+  allow_implicit_invocation: true

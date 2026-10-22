@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MonitorBar · 状态栏风格拆解</title>
+<link rel="stylesheet" href="monitorbar.css">
+<style>
+*{box-sizing:border-box}body{margin:0;background:#e9e9ed;color:#1d1d1f;font:14px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}a{color:inherit;text-underline-offset:4px}button,select{font:inherit}button{cursor:pointer}main{max-width:1236px;margin:auto;padding:42px 32px 60px}header.lab-header{display:flex;justify-content:space-between;gap:30px;align-items:flex-end;padding-bottom:25px;border-bottom:1px solid #d2d2d7}h1{font-size:32px;line-height:1.25;font-weight:600;letter-spacing:-1px;margin:0 0 10px}header p{margin:0;color:#636368;max-width:600px}.lab-source{font-size:12px;white-space:nowrap}.lab-grid{display:grid;grid-template-columns:minmax(220px,1fr) 360px minmax(250px,1fr);gap:32px;align-items:start;margin-top:27px}h2{font-size:15px;margin:0 0 16px;font-weight:600}.lab-controls{display:flex;flex-direction:column;gap:14px;margin-bottom:24px}.lab-controls label{display:grid;gap:5px;font-size:12px;color:#636368}.lab-theme-picker{grid-column:1/-1}.lab-controls select{width:100%;padding:8px 9px;border:1px solid #c7c7cc;border-radius:7px;background:#fff;color:#1d1d1f}.lab-copy{margin:0 0 20px;color:#636368;font-size:13px}.lab-rule{border-top:1px solid #d2d2d7;padding:14px 0}.lab-rule strong{display:block;font-size:13px;margin-bottom:4px}.lab-rule p{font-size:12px;color:#636368;margin:0}.lab-swatches{display:flex;gap:9px;align-items:center;margin:20px 0}.lab-swatches i{height:24px;width:24px;border-radius:6px;border:1px solid #0002}.lab-swatches code{font-size:11px}.lab-product{width:360px;max-width:100%}.lab-product>p{font-size:12px;color:#636368;margin:15px 0 0;line-height:1.5}.lab-original img{display:block;width:100%;max-width:300px;height:auto;margin:auto}.lab-original p{font-size:12px;color:#636368;line-height:1.6}.lab-original small{display:block;font-size:11px;color:#636368;margin-bottom:14px}.lab-original details{font-size:12px}.lab-original summary{cursor:pointer}.lab-links{display:flex;gap:18px;margin-top:24px;font-size:12px;flex-wrap:wrap}.lab-live{min-height:20px;color:#636368;font-size:12px;margin:14px 0 0}.lab-key{font-variant-numeric:tabular-nums} :focus-visible{outline:2px solid #007AFF;outline-offset:4px}::selection{background:#e8f1fd;color:#0066cc}@media(max-width:1060px){.lab-grid{grid-template-columns:minmax(210px,1fr) 360px}.lab-original{grid-column:1/-1;border-top:1px solid #d2d2d7;padding-top:24px}.lab-original img{margin:0}.lab-original h2{margin-bottom:8px}}@media(max-width:650px){main{padding:25px 15px}header.lab-header{display:block}h1{font-size:27px}.lab-source{margin-top:14px}.lab-grid{display:flex;flex-direction:column;gap:24px}.lab-notes{width:100%}.lab-controls{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}.lab-rule{display:none}.lab-copy{margin-bottom:10px}.lab-swatches{display:none}.lab-product{align-self:center}.lab-original{width:100%}.lab-original img{max-width:300px}.lab-links{margin-top:12px}}
+</style>
+<script src="icons.js" defer></script><script src="preview.js" defer></script>
+</head>
+<body><main>
+<header class="lab-header"><div><h1 id="lab-heading">MonitorBar 的浅色表达</h1><p id="lab-intro">银白表面、石墨文字与克制的蓝色。沿用紧凑结构，贴近苹果系统面板的视觉习惯。</p></div><div class="lab-source"><a href="https://github.com/Binaryify/MonitorBar/tree/950ec67b540438578b56e0341503ba1e80f090e2" target="_blank" rel="noreferrer">查看原项目 ↗</a><br><span>源码基线 950ec67 · 2026-10-15</span></div></header>
+<div class="lab-grid">
+<aside class="lab-notes"><h2>同一个骨架，两套配色</h2>
+<div class="lab-controls"><label class="lab-theme-picker">配色<select id="theme"><option value="light">银白 · 系统蓝（浅色）</option><option value="dark">炭黑 · 橙色（原版）</option></select></label><label>平台<select id="platform"><option value="mac">macOS 菜单栏</option><option value="windows">Windows 托盘</option></select></label><label>能力 / 状态示例<select id="connection"><option value="connected">已连接</option><option value="detecting">正在检测</option><option value="unsupported">无硬件控制能力</option><option value="error">连接失败 · 可重试</option></select></label></div>
+<p class="lab-copy" id="platform-note">顶部箭头关联菜单栏入口；圆角 16，主体保持不透明。</p>
+<div class="lab-rule"><strong>360 宽 · 内容决定高度</strong><p>外边距 13 / 卡片内边距 12 / 组间距 12。固定标题与导航，内容单独滚动。</p></div>
+<div class="lab-rule"><strong>16 → 12 → 9 的圆角层级</strong><p>面板、卡片、按钮逐级收紧，靠轻微明度差建立层次。</p></div>
+<div class="lab-rule"><strong id="theme-rule">中性银白，蓝色点缀</strong><p id="theme-description">白色卡片、浅灰控件和白色选中分页。蓝色用于当前选择与操作反馈。</p></div>
+<div class="lab-rule"><strong id="page-rule">概览：高频控制直接可用</strong><p id="page-description">设备状态、输入源、亮度、音量、场景。试着切换分页、拖动滑杆和选择场景。</p></div>
+<div class="lab-swatches"><i id="swatch-surface" style="background:#f5f5f7"></i><i id="swatch-card" style="background:#fff"></i><i id="swatch-accent" style="background:#007AFF"></i><code id="swatch-code">#007AFF</code></div>
+<nav class="lab-links"><a href="../references/design-spec.md">完整拆解</a><a href="tokens.json">配色 Token</a><a href="../SKILL.md">Skill</a></nav>
+</aside>
+<section class="lab-product" aria-label="可操作的风格样板"><h2 id="sample-heading">银白 · 系统蓝</h2>
+<div class="mb" id="monitorbar" data-platform="mac" data-theme="light"><div class="mb-arrow"></div><div class="mb-body">
+<div class="mb-header"><div class="mb-brand" data-icon="display"></div><div class="mb-identity"><div class="mb-name" title="Mi Monitor">Mi Monitor</div><div class="mb-caption">外接显示器 · HDMI · 4K · 160Hz</div></div><button class="mb-more" id="more" aria-label="更多操作" aria-expanded="false" data-icon="ellipsis"></button><button class="mb-power" id="power" aria-label="演示立即熄屏" title="演示立即熄屏" data-icon="power"></button></div>
+<div class="mb-tabs" role="tablist" aria-label="控制分类"></div>
+<div class="mb-content" id="page-content" role="tabpanel" aria-labelledby="tab-overview"></div>
+<div class="mb-footer" id="status"></div>
+</div><div class="mb-menu" id="menu" aria-label="更多操作" hidden><button data-menu="detect">重新检测显示器</button><button data-menu="settings">打开系统显示器设置…</button><button data-menu="startup">登录时启动：关闭</button></div></div>
+<p>浏览器适配 · 示例数据。操作仅改变此样板，不控制真实显示器。Windows 圆角由此处模拟，实际应用交给系统。</p><div id="demo-live" class="lab-live" role="status" aria-live="polite"></div>
+</section>
+<aside class="lab-original"><h2>原版深色对照</h2><small id="original-label">概览 · macOS 2× 快照</small><a id="original-link" href="screenshots/overview.png" target="_blank"><img id="original" src="screenshots/overview.png" alt="MonitorBar 原仓库概览截图"></a><p id="source-note">仓库原图用于校准外观，固定示例数据不代表本机设备。</p><details><summary>源码与截图的差异</summary><p>原「画面」截图未包含自动切换，并显示了不支持 DDC/CI 的说明。当前源码已经加入自动切换，并隐藏不支持的功能。本样板按当前源码组织此页。</p></details></aside>
+</div></main></body></html>

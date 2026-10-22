@@ -1,0 +1,22 @@
+{
+  "contract_version": "1.0",
+  "provider_id": "monitorbar-desktop-style",
+  "display_name": "MonitorBar Desktop Design Provider",
+  "entry": "SKILL.md",
+  "design_families": ["monitorbar-compact", "apple-inspired-light", "monitorbar-dark"],
+  "capabilities": ["visual-spec", "component-mapping", "tokens", "themes", "motion", "style-audit", "implementation", "style-candidate"],
+  "surfaces": ["macos-menu-bar", "windows-system-tray", "desktop-flyout", "desktop-web-preview"],
+  "framework_support": [
+    {"name": "vanilla", "level": "native", "notes": "Bundled HTML/CSS/JS preview and tokens; native means direct web assets, not native OS integration."},
+    {"name": "react", "level": "adapted", "notes": "Map tokens and patterns onto existing React components; no bundled React component package."},
+    {"name": "vue", "level": "adapted", "notes": "Map tokens and patterns onto existing Vue components; no framework migration."},
+    {"name": "electron", "level": "adapted", "notes": "Renderer styling only; tray registration, focus and placement require host implementation and tests."},
+    {"name": "tauri", "level": "adapted", "notes": "WebView styling only; tray registration, focus and placement require host implementation and tests."},
+    {"name": "swiftui", "level": "guidance", "notes": "Semantic tokens, geometry and platform contract; no bundled or tested SwiftUI implementation."},
+    {"name": "appkit", "level": "guidance", "notes": "Native semantic adaptation; real menu-bar and multi-display behavior must be verified."},
+    {"name": "winui", "level": "guidance", "notes": "Semantic tokens and Windows shell contract; native DPI and ClearType remain unverified."},
+    {"name": "qt", "level": "guidance", "notes": "Translate semantic styling to existing Qt components; no bundled Qt implementation."},
+    {"name": "go", "level": "guidance", "notes": "Frozen upstream excerpts support source inspection, not a runnable or tested native starter."}
+  ],
+  "dependencies": {"optional_libraries": []}
+}
